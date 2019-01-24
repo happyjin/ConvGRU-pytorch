@@ -97,6 +97,13 @@ class ConvGRU(nn.Module):
         """
         super(ConvGRU, self).__init__()
 
+        # Make sure that both `kernel_size` and `hidden_dim` are lists having len == num_layers
+        kernel_size = self._extend_for_multilayer(kernel_size, num_layers)
+        print(num_layers)
+        hidden_dim  = self._extend_for_multilayer(hidden_dim, num_layers)
+        if not len(kernel_size) == len(hidden_dim) == num_layers:
+            raise ValueError('Inconsistent list length.')
+
         self.height, self.width = input_size
         self.input_dim = input_dim
         self.hidden_dim = hidden_dim
@@ -171,6 +178,18 @@ class ConvGRU(nn.Module):
             init_states.append(self.cell_list[i].init_hidden(batch_size))
         return init_states
 
+    @staticmethod
+    def _check_kernel_size_consistency(kernel_size):
+        if not (isinstance(kernel_size, tuple) or
+                    (isinstance(kernel_size, list) and all([isinstance(elem, tuple) for elem in kernel_size]))):
+            raise ValueError('`kernel_size` must be tuple or list of tuples')
+
+    @staticmethod
+    def _extend_for_multilayer(param, num_layers):
+        if not isinstance(param, list):
+            param = [param] * num_layers
+        return param
+
 
 if __name__ == '__main__':
     # set CUDA device
@@ -186,7 +205,7 @@ if __name__ == '__main__':
     height = width = 6
     channels = 256
     hidden_dim = [32, 64]
-    kernel_size = [(3,3), (3,3)] # for two stacked hidden layer
+    kernel_size = (3,3) # kernel size for two stacked hidden layer
     num_layers = 2 # number of stacked hidden layer
     model = ConvGRU(input_size=(height, width),
                     input_dim=channels,
