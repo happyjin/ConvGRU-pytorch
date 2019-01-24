@@ -50,7 +50,7 @@ layer_output_list, last_state_list = model(input_tensor)
 This is still a work in progress and is far from being perfect: if you find any bug please don't hesitate to open an issue.
 
 ### License
-Faster R-CNN is released under the MIT License (refer to the LICENSE file for details).
+ConvLSTM_pytorch is released under the MIT License (refer to the LICENSE file for details).
 
 ### Acknowledgment
 This repo borrows some codes from 
