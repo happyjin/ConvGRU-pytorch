@@ -217,6 +217,7 @@ if __name__ == '__main__':
                     bias = True,
                     return_all_layers = False)
 
+
     batch_size = 1
     time_steps = 1
     input_tensor = torch.rand(batch_size, time_steps, channels, height, width)  # (b,t,c,h,w)
