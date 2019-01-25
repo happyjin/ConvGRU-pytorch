@@ -25,7 +25,7 @@ else:
 height = width = 6
 channels = 256
 hidden_dim = [32, 64]
-kernel_size = [(3,3), (3,3)] # for two stacked hidden layer
+kernel_size = (3,3) # for two stacked hidden layer or write as [(3,3), (3,3)]
 num_layers = 2 # number of stacked hidden layer
 model = ConvGRU(input_size=(height, width),
                 input_dim=channels,
