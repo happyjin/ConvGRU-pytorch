@@ -99,7 +99,6 @@ class ConvGRU(nn.Module):
 
         # Make sure that both `kernel_size` and `hidden_dim` are lists having len == num_layers
         kernel_size = self._extend_for_multilayer(kernel_size, num_layers)
-        print(num_layers)
         hidden_dim  = self._extend_for_multilayer(hidden_dim, num_layers)
         if not len(kernel_size) == len(hidden_dim) == num_layers:
             raise ValueError('Inconsistent list length.')
@@ -216,7 +215,6 @@ if __name__ == '__main__':
                     batch_first=True,
                     bias = True,
                     return_all_layers = False)
-
 
     batch_size = 1
     time_steps = 1
